@@ -69,10 +69,12 @@ a {
 
 .navbar {
     display: flex;
+    flex-wrap: wrap;
     color: black;
     font-size: 17px;
     justify-content: center;
     gap: 20px;
+    box-sizing: border-box;
 }
 
 .nav-item {
