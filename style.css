@@ -124,7 +124,7 @@ a {
   line-height: 1;
 }
 
-.bktext {
+.welcome {
     flex-direction: 1 1 50%;
     padding: 40px;
     display: flex;
@@ -133,4 +133,30 @@ a {
     align-items: center;
     gap: 16px;
     color: #111;    
+}
+
+.hidden { display: none; }
+
+.contentsecs {
+  padding: 40px 20px;
+  background: #f9f9f9;
+  border-top: 1px solid #ddd;
+}
+
+.resflex-container {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.resume-pic {
+  max-width: 200px;
+  height: auto;
+  border-radius: 8px;
+}
+
+.resume-text {
+  flex: 1;
+  flex-wrap: wrap;
 }
