@@ -6,6 +6,11 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
 .linkback {
   background-color: #4F666A;
   padding: 10px 20px;
