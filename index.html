@@ -109,7 +109,7 @@
       One of the challenges in this project was the datasets. While the UN set was fairly well-designed, the custom-made sub-titles dataset required some refinement.
       Although movie and TV show subs are already a good dataset in theory, as they are temporally co-paired by design, there were some issues with variations in
       the specific sentences and times. For example, a few sentences were split on different lines, or were off by a very small margin in the timer. To fix this,
-      I simply ran a preprocess script that looked for punctuation marks to determine if a line was randomly broke apart, and then verified the few edge cases that
+      I simply ran a pre-process script that looked for punctuation marks to determine if a line was randomly broke apart, and then verified the few edge cases that
       were just weirdly formatted. The Thai-English corpus ended up at around 300,000 words, and the Mandarin-English corpus was a little less. I acknowledge
       that these are considered very lightweight sizes.
     </p>
@@ -119,7 +119,7 @@
     </p>
     <h3>Libraries and Tools</h3>
     <p>
-      As impressive as reinventing the wheel on my laptop would be, there was no reason to do so here. Consequently, I utilized serveral open-source tools
+      As impressive as reinventing the wheel on my laptop would be, there was no reason to do so here. Consequently, I utilized several open-source tools
       and common python Libraries to get this project up.
     </p>
     <p>
@@ -148,6 +148,26 @@
       If I had more time and resources to devote solely to this project, I would like to focus on three major improvements. Increase the corpus size into millions
       of paired words to capture more breadth in recognition, curate the dataset more to ensure accurate translation, and implement seq2seqtrainer during the
       training step to prepare for generative capabilities.
+    </p>
+  </div>
+  <div id="predictive-logistics" class="contentsecs hidden">
+    <h2>Predictive Logistics</h2>
+    <p>This is a little shorter due to controlled information being used in the project. The question was essentially if ML tools could empower
+      military decision making by providing better estimates of logistics data such as part-demands and operational status of fleets.
+    </p>
+    <h3>Model Design</h3>
+    <p>Several iterations were made testing different options such as Prophet, SARIMA, CNN, etc. What I eventually settled on was an LSTM ensemble model. 
+      The LSTM had better results I believe due to customizing the memory weights and lags. What I ended up doing was running two LSTM models, one to analyze for
+      group trends, which can be conceptualized as replacing brakes and tires at the same time, and then another LSTM to analyze each part individually. Since there 
+      are a lot of parts that are legacy parts, I ended up limiting this to the top 20 frequently ordered parts. Finally, the model takes a NIIN (material ID number) + date payload and returns
+      the next 12 months of predicted quantities on a monthly basis.
+    </p>
+    <h3>Results and Improvements</h3>
+    <p>
+      This model when evaluating using MASE, MSE, etc. Demonstrated better results 2/3rds of the time when compared to traditional averaging methods being used. 
+      Ideally, I would like to improve the modeling with better curation of the parts, and finding an exogenous variable to help predict as opposed to purely a
+      seasonality-based approach using ordering history. Additionally, the model would benefit greatly from more accurate reporting of part demand/ordering, as
+      there are some gaps and suspicious data.
     </p>
   </div>
 </body>
