@@ -90,5 +90,65 @@
       <p>Through git using the link on the banner</p>
     </div>
   </div>
+  <div id="ml-translation" class="contentsecs hidden">
+    <h2>Machine Learning Translation</h2>
+    <h3>How it started</h3>
+    <p>When I first began this project, it arose from the desire to provide local, offline translation capabilities for units that may not have
+      enough vetted translators to support their missions. From there, it grew to providing a fully-functional tool developed using open-source resources
+      and datasets to provide rapid-deployable translation capabilities on low-resource devices.
+    </p>
+    <h3>How it was made</h3>
+    <p>
+      The first version of the translation tool was targeting English - Thai, and Thai - English. I quickly ran into the issue of finding an open-source
+      dataset to train from that wasn't asking for a payment. To resolve this issue, I implemented a strategy where I combed through online fan-made movie
+      and TV show sub-title translations. For the second version, focusing on Mandarin, I was able to find a UN corpus of paired English and Mandarin speeches
+      and documents.
+    </p>
+    <h3>The Datasets</h3>
+    <p>
+      One of the challenges in this project was the datasets. While the UN set was fairly well-designed, the custom-made sub-titles dataset required some refinement.
+      Although movie and TV show subs are already a good dataset in theory, as they are temporally co-paired by design, there were some issues with variations in
+      the specific sentences and times. For example, a few sentences were split on different lines, or were off by a very small margin in the timer. To fix this,
+      I simply ran a preprocess script that looked for punctuation marks to determine if a line was randomly broke apart, and then verified the few edge cases that
+      were just weirdly formatted. The Thai-English corpus ended up at around 300,000 words, and the Mandarin-English corpus was a little less. I acknowledge
+      that these are considered very lightweight sizes.
+    </p>
+    <p>
+      For the Mandarin model, the UN provided excellent paired datasets, which can be utilized essentially out of the box after downloading, with very minor tweaks
+      to suit it for my specific training.
+    </p>
+    <h3>Libraries and Tools</h3>
+    <p>
+      As impressive as reinventing the wheel on my laptop would be, there was no reason to do so here. Consequently, I utilized serveral open-source tools
+      and common python Libraries to get this project up.
+    </p>
+    <p>
+      Libraries used include transformers, torch, pandas, glob (for multiple .tsv files), datasets, and finally pyinstaller to package it as an executable app.
+      Additionally, I used a few open-source tools like huggingface from Facebook and the mbart50fast tokenizer. For voice recognition, I used Vosk, as I don't have
+      the resources or time to train a voice model.
+    </p>
+    <h3>Model Training</h3>
+    <p>
+      The actual training comprised of using tokenization to break apart sentence structures from my paired-corpus, then training with transformer's trainer.
+      If I was looking to create a much stronger generative model with stronger resources for training, I would have used seq2seqtrainer instead of trainer.
+      That said, each direction for training took approximately 170 hours of run-time, during which my laptop was struggling to run anything else, so resource
+      limitations heavily influenced my selections. However, the end goal of this was to run on low-resource devices, so training for generative implementation
+      would probably have yielded an unusable product anyways.
+    </p>
+    <h3>Results and Improvements</h3>
+    <p>
+      The trained models demonstrated a robust capability to provide relatively quick translation of shorter sentences. When asking sentences of around 15-20
+      words or less, the time to translate on a low-resource computer was about 20s, while it was below 5s on my own laptop using a stronger CPU. With CUDA enabled
+      devices, short sentence translation was under 2s. Longer sentences begin to scale longer translation times, but are still within reasonable waits. Additionally,
+      the models preformed well on finding alternate words that fit the general idea for complex ideas, if not providing 100% accurate context. An example of this
+      was that "jungle" was translated to "forest" as the word had been missed in the Thai corpus. This level of accuracy is acceptable for general usage, but
+      if used in high-fidelity requirements, it would need refinement.
+    </p>
+    <p>
+      If I had more time and resources to devote solely to this project, I would like to focus on three major improvements. Increase the corpus size into millions
+      of paired words to capture more breadth in recognition, curate the dataset more to ensure accurate translation, and implement seq2seqtrainer during the
+      training step to prepare for generative capabilities.
+    </p>
+  </div>
 </body>
 </html>
